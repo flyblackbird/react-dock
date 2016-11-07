@@ -227,7 +227,10 @@ export default class Dock extends Component {
 
   static propTypes = {
     position: PropTypes.oneOf(['left', 'right', 'top', 'bottom']),
-    zIndex: PropTypes.number,
+    zIndex: PropTypes.oneOfType([
+      React.PropTypes.string,
+      React.PropTypes.number,
+    ]),
     fluid: PropTypes.bool,
     size: PropTypes.number,
     defaultSize: PropTypes.number,
