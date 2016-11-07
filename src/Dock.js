@@ -1,6 +1,7 @@
 import React, { Component, PropTypes } from 'react';
 import debounce from 'lodash.debounce';
 import autoprefix from './autoprefix';
+import classnames from 'classnames';
 
 function autoprefixes(styles) {
   return Object.keys(styles).reduce(
@@ -236,7 +237,9 @@ export default class Dock extends Component {
     onSizeChange: PropTypes.func,
     dimStyle: PropTypes.object,
     dockStyle: PropTypes.object,
-    duration: PropTypes.number
+    duration: PropTypes.number,
+    outerContainerClassName: PropTypes.string,
+    innerContainerClassName: PropTypes.string,
   }
 
   static defaultProps = {
@@ -322,12 +325,22 @@ export default class Dock extends Component {
     const dockStyles = Object.assign({}, ...getDockStyles(this.props, this.state));
     const resizerStyles = Object.assign({}, ...getResizerStyles(position));
 
+    const outerClassNames = classnames(
+      'react-dock-outer-wrapper',
+      this.props.outerContainerClassName
+    );
+
+    const innerClassNames = classnames(
+      'react-dock-inner-wrapper',
+      this.props.innerContainerClassName
+    );
+
     return (
-      <div style={Object.assign({}, styles.wrapper, { zIndex })}>
+      <div className={outerClassNames} style={Object.assign({}, styles.wrapper, { zIndex })}>
         {dimMode !== 'none' && !isDimHidden &&
           <div style={dimStyles} onClick={this.handleDimClick} />
         }
-        <div style={dockStyles}>
+        <div className={innerClassNames} style={dockStyles}>
           <div style={resizerStyles}
                onMouseDown={this.handleMouseDown} />
           <div style={styles.dockContent}>

@@ -23,4 +23,24 @@ describe('Dock component', function() {
     });
     expect(result.type).to.equal('div');
   });
+
+  it('renders outter wrapper with default and additional classname', function() {
+    const renderer = TestUtils.createRenderer();
+    renderer.render(<Dock outerContainerClassName='custom-class-name' />);
+
+    expect(renderer.getRenderOutput().props.className).to.equal(
+      'react-dock-outer-wrapper custom-class-name'
+    );
+  });
+
+  it('renders outter wrapper with default and additional classname', function() {
+    const renderer = TestUtils.createRenderer();
+    renderer.render(<Dock innerContainerClassName='custom-class-name' />);
+
+    const subject = renderer.getRenderOutput().props.children[1];
+
+    expect(subject.props.className).to.equal(
+      'react-dock-inner-wrapper custom-class-name'
+    );
+  });
 });
