@@ -75,7 +75,7 @@ const styles = autoprefixes({
 });
 
 function getTransitions(duration) {
-  return ['left', 'top', 'width', 'height']
+  return ['left', 'top', 'right', 'width', 'height']
   .map(p => `${p} ${duration/1000}s ease-out`);
 }
 
@@ -103,7 +103,8 @@ function getDockStyles(
     break;
   case 'right':
     posStyle = {
-      left: isVisible ? getRestSize(fullWidth) : fullWidth,
+      left: 'auto',
+      right: isVisible ? 0 : '-' + absSize,
       width: absSize
     };
     break;
